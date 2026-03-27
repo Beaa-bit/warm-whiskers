@@ -121,3 +121,7 @@ muteBtn.addEventListener('click', () => {
     muteBtn.textContent = '🔇 Unmute';
   }
 });
+document.addEventListener('click', () => {
+  const bgMusic = document.getElementById('bgMusic');
+  bgMusic.play().catch(e => console.log('Play blocked until user interacts', e));
+}, { once: true });
