@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Whiskers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<audio id="bgMusic" src="assets/music/background.mp3" loop autoplay></audio>
+<button id="muteBtn" class="game-btn">🔊 Mute</button>
+<body>
+
+ 
+  <div id="menu" class="screen active">
+    <img src="assets/ui/logo.png" alt="Warm Whiskers Logo" class="logo">
+    <button class="game-btn" onclick="showScreen('tutorial')">Tutorial</button>
+    <button class="game-btn" onclick="showScreen('petSelect')">Start Game</button>
+    <button class="game-btn" onclick="loadGame()">Continue</button>
+  </div>
+
+
+  <div id="tutorial" class="screen">
+    <h2>Tutorial</h2>
+    <p>Make sure to take care of these little creatures by giving what they need!</p>
+    <button class="game-btn" onclick="showScreen('menu')">Back</button>
+  </div>
+
+  
+  <div id="petSelect" class="screen">
+    <h2>Choose Your Pet</h2>
+    <button class="game-btn" onclick="selectPet('cat1')">🐱 Cat 1</button>
+    <button class="game-btn" onclick="selectPet('cat2')">🐈 Cat 2</button>
+    <br><br>
+    <button class="game-btn" onclick="showScreen('menu')">Back</button>
+  </div>
+
+ 
+  <div id="game" class="screen">
+    <h2>Your Pet</h2>
+
+   
+    <div id="petBaseplate">
+      <img id="petImage" src= "assets/cats/cat1_idle.gif" alt="pet">
+    </div>
+
+    <div id="moodText">Mood: 🙂</div>
+
+    
+    <div class="stats">
+      <p>Hunger</p><div class="bar"><div id="hunger" class="fill"></div><span class="stat-value" id="hungerValue">100%</span></div>
+      <p>Fun</p><div class="bar"><div id="boredom" class="fill"></div><span class="stat-value" id="boredomValue">100%</span></div>
+      <p>Cleanliness</p><div class="bar"><div id="clean" class="fill"></div><span class="stat-value" id="cleanValue">100%</span></div>
+      <p>Love</p><div class="bar"><div id="love" class="fill"></div><span class="stat-value" id="loveValue">50%</span></div>
+      <p>Energy</p><div class="bar"><div id="sleep" class="fill"></div><span class="stat-value" id="sleepValue">100%</span></div>
+    </div>
+
+    <div class="actions">
+      <button class="game-btn" onclick="play()">Play</button>
+      <button class="game-btn" onclick="pet()">Pet</button>
+      <button class="game-btn" onclick="feed()">Feed</button>
+      <button class="game-btn" onclick="shower()">Shower</button>
+      <button class="game-btn" onclick="sleepPet()">Sleep</button>
+    </div>
+
+    <br>
+    <button class="game-btn" onclick="saveGame()">Save</button>
+    <button class="game-btn" onclick="showScreen('menu')">Main Menu</button>
+
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
