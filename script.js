@@ -93,7 +93,7 @@ setInterval(() => {
   stats.boredom = clamp(stats.boredom - 10);
   stats.love = clamp (stats.love - 13);
   updateBars();
-}, 2000);
+}, 5000);
 
 function loadGame() {
   let data = JSON.parse(localStorage.getItem('petSave'));
