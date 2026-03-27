@@ -88,10 +88,10 @@ function setEmotion(type) {
 }
 
 setInterval(() => {
-  stats.hunger = clamp(stats.hunger - 10);
-  stats.sleep = clamp(stats.sleep - 1);
-  stats.boredom = clamp(stats.boredom - 10);
-  stats.love = clamp (stats.love - 13);
+  stats.hunger = clamp(stats.hunger - 1.5);
+  stats.sleep = clamp(stats.sleep - 3.5);
+  stats.boredom = clamp(stats.boredom - 2.5);
+  stats.love = clamp (stats.love - 2.5);
   updateBars();
 }, 5000);
 
