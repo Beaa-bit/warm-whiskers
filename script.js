@@ -91,12 +91,10 @@ setInterval(() => {
   stats.hunger = clamp(stats.hunger - 10);
   stats.sleep = clamp(stats.sleep - 1);
   stats.boredom = clamp(stats.boredom - 10);
-  stats.love = clamp (stats.love - 13)
-  stats. 
+  stats.love = clamp (stats.love - 13);
   updateBars();
 }, 2000);
 
-function saveGame() { localStorage.setItem('petSave', JSON.stringify({ stats, currentPet })); }
 function loadGame() {
   let data = JSON.parse(localStorage.getItem('petSave'));
   if (!data) return;
@@ -105,23 +103,22 @@ function loadGame() {
   document.getElementById('petImage').src = `assets/cats/${currentPet}_idle.gif`;
   showScreen('game');
   updateBars();
+} 
 
-  const bgMusic = document.getElementById('bgMusic');
-const muteBtn = document.getElementById('muteBtn');
-}
 const bgMusic = document.getElementById('bgMusic');
 const muteBtn = document.getElementById('muteBtn');
 
 muteBtn.addEventListener('click', () => {
   if (bgMusic.muted) {
     bgMusic.muted = false;
+    bgMusic.play(); // ensure it plays when unmuted
     muteBtn.textContent = '🔊 Mute';
   } else {
     bgMusic.muted = true;
     muteBtn.textContent = '🔇 Unmute';
   }
 });
+
 document.addEventListener('click', () => {
-  const bgMusic = document.getElementById('bgMusic');
   bgMusic.play().catch(e => console.log('Play blocked until user interacts', e));
 }, { once: true });
