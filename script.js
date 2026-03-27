@@ -31,6 +31,14 @@ function updateBars() {
   updateMood();
 }
 
+function updateMood() {
+  let avg = (stats.hunger + stats.boredom + stats.clean + stats.love + stats.sleep) / 5;
+  let mood = '😐';
+  if (avg > 80) mood = '😄';
+  else if (avg < 40) mood = '😢';
+  document.getElementById('moodText').innerText = 'Mood: ' + mood;
+}
+
 function play() {
   stats.hunger = clamp(stats.hunger - 5);
   stats.clean = clamp(stats.clean - 14);
@@ -50,7 +58,7 @@ function pet() {
 
 function feed() {
   stats.hunger = clamp(stats.hunger + 20);
-  stats.clean = clamp(stats.clean - 5)
+  stats.clean = clamp(stats.clean - 5);
   stats.love = clamp(stats.love + 10);
   stats.boredom = clamp(stats.boredom - 0.1);
   updateBars();
@@ -59,7 +67,7 @@ function feed() {
 
 function shower() {
   stats.clean = clamp(stats.clean + 50);
-  stats.love = clamp(stats.love - 10)
+  stats.love = clamp(stats.love - 10);
   stats.boredom = clamp(stats.boredom - 0.5);
   updateBars();
   setEmotion('bath');
@@ -67,17 +75,8 @@ function shower() {
 
 function sleepPet() {
   stats.sleep = clamp(stats.sleep + 40);
-  stats.shower = clamp(stats.shower - 0.5)
   updateBars();
   setEmotion('sleep');
-}
-
-function updateMood() {
-  let avg = (stats.hunger + stats.boredom + stats.clean + stats.love + stats.sleep) / 5;
-  let mood = '😐';
-  if (avg > 80) mood = '😄';
-  else if (avg < 40) mood = '😢';
-  document.getElementById('moodText').innerText = 'Mood: ' + mood;
 }
 
 function setEmotion(type) {
@@ -91,19 +90,33 @@ setInterval(() => {
   stats.hunger = clamp(stats.hunger - 10);
   stats.sleep = clamp(stats.sleep - 1);
   stats.boredom = clamp(stats.boredom - 10);
-  stats.love = clamp (stats.love - 13);
+  stats.love = clamp(stats.love - 13);
   updateBars();
 }, 2000);
 
+function saveGame() {
+  localStorage.setItem('petSave', JSON.stringify({ stats, currentPet }));
+}
+
 function loadGame() {
   let data = JSON.parse(localStorage.getItem('petSave'));
-  if (!data) return;
+  if (!data) {
+    alert("No saved game found!");
+    return;
+  }
+
   stats = data.stats;
   currentPet = data.currentPet;
+
   document.getElementById('petImage').src = `assets/cats/${currentPet}_idle.gif`;
   showScreen('game');
   updateBars();
-} 
+
+  // Play audio if unmuted
+  if (!bgMusic.muted) {
+    bgMusic.play().catch(e => console.log('Audio blocked until user interacts', e));
+  }
+}
 
 const bgMusic = document.getElementById('bgMusic');
 const muteBtn = document.getElementById('muteBtn');
@@ -111,7 +124,7 @@ const muteBtn = document.getElementById('muteBtn');
 muteBtn.addEventListener('click', () => {
   if (bgMusic.muted) {
     bgMusic.muted = false;
-    bgMusic.play(); // ensure it plays when unmuted
+    bgMusic.play();
     muteBtn.textContent = '🔊 Mute';
   } else {
     bgMusic.muted = true;
